@@ -1,0 +1,15 @@
+{
+  "payload": {
+    "format": "creatorshield-checkpoint/1",
+    "day": "2026-11-17",
+    "headSeq": 7,
+    "headEventHash": "0d6065ad96a23849e5927a253ebcc0b7dd4c43c28f097a42e79a9e1a1bf655fd",
+    "issuedAt": "2026-11-17T08:06:55.776Z",
+    "alg": "Ed25519",
+    "keyId": "key-supabase-dev-2026-11"
+  },
+  "bulletin": "{\"alg\":\"Ed25519\",\"day\":\"2026-11-17\",\"format\":\"creatorshield-checkpoint/1\",\"headEventHash\":\"0d6065ad96a23849e5927a253ebcc0b7dd4c43c28f097a42e79a9e1a1bf655fd\",\"headSeq\":7,\"issuedAt\":\"2026-11-17T08:06:55.776Z\",\"keyId\":\"key-supabase-dev-2026-11\"}",
+  "bulletinHash": "8610596480ab80ed612f81d61d50f7bc0bbbbbe6abec251124e3cddb68545a01",
+  "signature": "4d+qEXxu6buFdR0enPcsjxr8MHbNYEfR5xjpX4gYJI82cIrzR9bEqMH/wg5AqAsSCl+tbEDdcWExJw+l9ldVBA==",
+  "signatureDomain": "creatorshield/checkpoint/v1"
+}
