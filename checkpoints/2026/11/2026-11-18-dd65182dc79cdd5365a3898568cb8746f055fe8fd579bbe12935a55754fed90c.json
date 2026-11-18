@@ -1,0 +1,17 @@
+{
+  "payload": {
+    "format": "creatorshield-checkpoint/2",
+    "day": "2026-11-18",
+    "headSeq": 7,
+    "headEventHash": "0d6065ad96a23849e5927a253ebcc0b7dd4c43c28f097a42e79a9e1a1bf655fd",
+    "issuedAt": "2026-11-18T07:03:47.363Z",
+    "alg": "Ed25519",
+    "keyId": "key-supabase-dev-2026-11",
+    "treeSize": 7,
+    "merkleRoot": "b371b72764ce10bd539348cbdf4d5713ed527bc5df328a2898b8e2a86be8b913"
+  },
+  "bulletin": "{\"alg\":\"Ed25519\",\"day\":\"2026-11-18\",\"format\":\"creatorshield-checkpoint/2\",\"headEventHash\":\"0d6065ad96a23849e5927a253ebcc0b7dd4c43c28f097a42e79a9e1a1bf655fd\",\"headSeq\":7,\"issuedAt\":\"2026-11-18T07:03:47.363Z\",\"keyId\":\"key-supabase-dev-2026-11\",\"merkleRoot\":\"b371b72764ce10bd539348cbdf4d5713ed527bc5df328a2898b8e2a86be8b913\",\"treeSize\":7}",
+  "bulletinHash": "dd65182dc79cdd5365a3898568cb8746f055fe8fd579bbe12935a55754fed90c",
+  "signature": "+Pjk9MlB5mIDfTwbc5WBGjOFhWaT46yWMU5g9h9t/hf+Uy9j+EUFTJmKuurq2VK0OES71ny60IBp4YxBQ0S6Dg==",
+  "signatureDomain": "creatorshield/checkpoint/v1"
+}
