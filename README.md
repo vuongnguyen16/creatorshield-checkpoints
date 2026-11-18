@@ -10,4 +10,4 @@ Git author and committer timestamps are self-reported. They are not an independe
 
 ## Key rotation (2026-11-18)
 
-Bulletins up to and including 2026-11-18 are signed with `key-supabase-dev-2026-11`. That key was retired on 2026-11-18. Its existing signatures stay valid, but it no longer signs new bulletins. Bulletins from 2026-11-19 onward are signed with the dedicated checkpoint key `key-checkpoint-2026-11`. Both public keys are in `public-keys.json`; select one by the `keyId` inside each bulletin.
+The first six bulletins (2026-11-17 heads #5 to #7 and the 2026-11-18 on-demand bulletin for head #7) are signed with `key-supabase-dev-2026-11`. That key was retired on 2026-11-18. Its existing signatures stay valid, but it no longer signs new bulletins. Starting with the 2026-11-18 daily bulletin for head #9, bulletins are signed with the dedicated checkpoint key `key-checkpoint-2026-11`. Both public keys are in `public-keys.json`; select one by the `keyId` inside each bulletin.
