@@ -10,6 +10,10 @@
     />
     <meta name="theme-color" content="#0E1334" />
     <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="./assets/fonts/be-vietnam-pro-vietnamese-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/fonts/be-vietnam-pro-latin-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/fonts/be-vietnam-pro-vietnamese-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="./assets/fonts/be-vietnam-pro-latin-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
@@ -114,12 +118,13 @@
               <label class="sr-only" for="quick-match-input">Dán khóa công khai hoặc mã băm SHA-256 cần đối chiếu</label>
               <input
                 id="quick-match-input"
+                name="quick-match"
                 class="text-input mono"
                 type="search"
                 inputmode="text"
                 autocomplete="off"
                 spellcheck="false"
-                placeholder="Dán 64 ký tự hex, keyId:hex64 hoặc mã khóa (vd: 3cd9a0a0...)"
+                placeholder="Dán 64 ký tự hex, keyId:hex64 hoặc mã khóa (vd: 3cd9a0a0…)"
               />
               <button type="button" id="quick-match-clear" class="btn btn-secondary" hidden>Xóa</button>
             </div>
@@ -239,7 +244,7 @@
             <div class="filter-bar">
               <div class="filter-field">
                 <label class="field-label" for="cp-key-filter">Lọc theo khóa ký</label>
-                <select id="cp-key-filter" class="select-input">
+                <select id="cp-key-filter" name="checkpoint-key" class="select-input">
                   <option value="">Tất cả khóa ({{CHECKPOINT_COUNT}} bản tin)</option>
                   {{KEY_FILTER_OPTIONS}}
                 </select>
@@ -248,9 +253,11 @@
                 <label class="field-label" for="cp-search-input">Tìm theo ngày, đầu chuỗi hoặc mã băm</label>
                 <input
                   id="cp-search-input"
+                  name="checkpoint-search"
                   class="text-input"
                   type="search"
-                  placeholder="Ví dụ: 2026-11-25, #13, 0df168..."
+                  autocomplete="off"
+                  placeholder="Ví dụ: 2026-11-25, #13, 0df168…"
                   spellcheck="false"
                 />
               </div>
