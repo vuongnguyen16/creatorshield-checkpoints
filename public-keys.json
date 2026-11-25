@@ -1,12 +1,46 @@
 [
   {
-    "keyId": "key-supabase-dev-2026-11",
-    "alg": "Ed25519",
-    "publicKeyHex": "d0643d01cc0302e20127b9d30a43e7f96a7cd8e3ef0ddfd14e0ba11b1386def5"
-  },
-  {
     "keyId": "key-checkpoint-2026-11",
     "alg": "Ed25519",
-    "publicKeyHex": "3cd9a0a0eeb4f075627eb1a43396bbb7b1e4271a589a169384f5cc4ec221784f"
+    "publicKeyHex": "3cd9a0a0eeb4f075627eb1a43396bbb7b1e4271a589a169384f5cc4ec221784f",
+    "status": "active",
+    "role": "checkpoint",
+    "label": "Khóa ký điểm kiểm chứng hằng ngày",
+    "activeFrom": "2026-11-18T10:00:00Z",
+    "retiredAt": null,
+    "note": "Khóa chuyên dụng ký các bản tin điểm kiểm chứng và gốc Merkle RFC 6962 công bố hằng ngày từ 18/11/2026 (từ đầu chuỗi #9 trở đi)."
+  },
+  {
+    "keyId": "key-vercel-mentor-2026-11",
+    "alg": "Ed25519",
+    "publicKeyHex": "00881f5fc32a25fd229166a1909779f8e6157a0d898751168ef3d79684a06d7e",
+    "status": "active",
+    "role": "event",
+    "label": "Khóa ký sự kiện ký gửi (creatorshield-mentor.vercel.app)",
+    "activeFrom": "2026-11-19T00:00:00Z",
+    "retiredAt": null,
+    "note": "Khóa ký sự kiện Ed25519 của bản triển khai chính creatorshield-mentor.vercel.app. Dùng để đối chiếu chữ ký các phiên bản tác phẩm ký gửi trên trang này."
+  },
+  {
+    "keyId": "key-vercel-prod-2026-11",
+    "alg": "Ed25519",
+    "publicKeyHex": "037549c12dded12c4b9617e79d0639585e85cc81a6a5cc058e3374cb1e0463aa",
+    "status": "active",
+    "role": "event",
+    "label": "Khóa ký sự kiện ký gửi (creatorshield-pi.vercel.app)",
+    "activeFrom": "2026-11-18T00:00:00Z",
+    "retiredAt": null,
+    "note": "Khóa ký sự kiện Ed25519 của bản triển khai creatorshield-pi.vercel.app trên cùng chuỗi sự kiện. Dùng để xác minh các bản ghi ký gửi qua bản đó."
+  },
+  {
+    "keyId": "key-supabase-dev-2026-11",
+    "alg": "Ed25519",
+    "publicKeyHex": "d0643d01cc0302e20127b9d30a43e7f96a7cd8e3ef0ddfd14e0ba11b1386def5",
+    "status": "retired",
+    "role": "legacy",
+    "label": "Khóa giai đoạn thử nghiệm (đã nghỉ)",
+    "activeFrom": "2026-11-17T00:00:00Z",
+    "retiredAt": "2026-11-18T10:00:00Z",
+    "note": "Đã ngừng ký bản tin mới từ 18/11/2026. 5 bản tin lịch sử (4 bản tin ngày 17/11 và bản tin đầu chuỗi #7 ngày 18/11) cùng các sự kiện đầu tiên vẫn xác minh hợp lệ bằng khóa này."
   }
 ]

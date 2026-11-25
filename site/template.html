@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kho khóa công khai &amp; điểm kiểm chứng · CreatorShield</title>
+    <meta
+      name="description"
+      content="Nguồn công bố độc lập trên GitHub cho khóa công khai Ed25519 và lịch sử điểm kiểm chứng Merkle RFC 6962 của CreatorShield (Đội Nghê Ấn)."
+    />
+    <meta name="theme-color" content="#0E1334" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Bỏ qua điều hướng</a>
+
+    <header class="site-header">
+      <div class="wrap site-header-inner">
+        <a class="brand" href="#main-content">
+          <svg
+            viewBox="0 0 240 240"
+            width="36"
+            height="36"
+            aria-hidden="true"
+            focusable="false"
+            class="brand-mark"
+          >
+            <defs>
+              <clipPath id="cs-hdr-clip">
+                <path d="M120 14 L204 46 V118 C204 176 170 214 120 230 C70 214 36 176 36 118 V46 Z" />
+              </clipPath>
+            </defs>
+            <path d="M120 14 L204 46 V118 C204 176 170 214 120 230 C70 214 36 176 36 118 V46 Z" fill="#1E2761" />
+            <path
+              d="M120 26 L192 54 V117 C192 168 162 202 120 217 C78 202 48 168 48 117 V54 Z"
+              fill="none"
+              stroke="#2A3A85"
+              stroke-width="3"
+            />
+            <g clip-path="url(#cs-hdr-clip)" fill="none" stroke="#CADCFC" stroke-linecap="round">
+              <path d="M64 96 A62 62 0 0 1 176 96" stroke-width="8" stroke-dasharray="52 16 60 200" />
+              <path d="M76 110 A48 48 0 0 1 164 110" stroke-width="8" stroke-dasharray="34 14 48 200" />
+              <path d="M88 124 A34 34 0 0 1 152 124" stroke-width="8" stroke-dasharray="70 12 30 200" />
+            </g>
+            <path
+              d="M82 142 L112 172 L172 108"
+              fill="none"
+              stroke="#E8BE3A"
+              stroke-width="17"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <span class="brand-text">
+            <span class="wordmark" translate="no">CREATOR<span class="wordmark-accent">SHIELD</span></span>
+            <span class="brand-sub">Kho khóa công khai độc lập</span>
+          </span>
+        </a>
+
+        <nav class="header-nav" aria-label="Liên kết nhanh">
+          <a class="nav-link" href="#active-keys-heading">Khóa đang hoạt động</a>
+          <a class="nav-link" href="#huong-dan">Cách đối chiếu</a>
+          <a class="nav-link" href="#diem-kiem-chung">Điểm kiểm chứng</a>
+          <a class="nav-link nav-pill" href="./public-keys.json" target="_blank" rel="noopener noreferrer">
+            <span>public-keys.json</span>
+            <span class="sr-only"> (mở thẻ mới)</span>
+          </a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <div class="page-band">
+        <div class="wrap">
+          <h1 class="page-title">Kho khóa công khai và điểm kiểm chứng</h1>
+          <p class="page-lead">
+            Nguồn đối chiếu độc lập lưu trên GitHub (<code class="mono inline-dark">{{REPO_SLUG}}</code>) để bên thứ ba
+            kiểm tra chữ ký Ed25519 và gốc Merkle RFC 6962 mà không cần tin máy chủ ứng dụng.
+          </p>
+          <p class="band-meta">{{BUILD_SUMMARY_META}}</p>
+          <div class="band-actions">
+            <a
+              class="btn btn-dark-outline"
+              href="{{APP_BASE_URL}}/xac-minh/goi-chung-cu"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>Mở trang xác minh gói chứng cứ</span>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              <span class="sr-only"> (mở thẻ mới)</span>
+            </a>
+            <a class="btn btn-dark-subtle" href="{{REPO_WEB_URL}}" target="_blank" rel="noopener noreferrer">
+              <span>Xem mã nguồn kho GitHub</span>
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+              <span class="sr-only"> (mở thẻ mới)</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="wrap page-body">
+        {{ACTIVE_KEYS_PLATE}}
+
+        <div class="sheet">
+          <!-- 1. Đối chiếu nhanh tại trình duyệt -->
+          <section class="sheet-section" id="doi-chieu-nhanh" aria-labelledby="quick-match-heading">
+            <h2 id="quick-match-heading" class="section-title">Đối chiếu nhanh mã khóa hoặc mã băm</h2>
+            <p class="section-lead">
+              Dán mã khóa công khai (64 ký tự hex hoặc <code class="mono">keyId:hex64</code>), gốc Merkle hoặc mã băm bản
+              tin từ hồ sơ PDF / <code class="mono">evidence.json</code> để kiểm khớp ngay tại trình duyệt này.
+            </p>
+            <div class="quick-match-form">
+              <label class="sr-only" for="quick-match-input">Dán khóa công khai hoặc mã băm SHA-256 cần đối chiếu</label>
+              <input
+                id="quick-match-input"
+                class="text-input mono"
+                type="search"
+                inputmode="text"
+                autocomplete="off"
+                spellcheck="false"
+                placeholder="Dán 64 ký tự hex, keyId:hex64 hoặc mã khóa (vd: 3cd9a0a0...)"
+              />
+              <button type="button" id="quick-match-clear" class="btn btn-secondary" hidden>Xóa</button>
+            </div>
+            <div id="quick-match-result" class="quick-match-result" role="status" aria-live="polite" hidden></div>
+          </section>
+
+          <!-- 2. Khóa đã nghỉ, thu hồi và lịch sử xoay khóa -->
+          <section class="sheet-section" id="khoa-cong-khai" aria-labelledby="all-keys-heading">
+            <div class="section-head">
+              <div>
+                <h2 id="all-keys-heading" class="section-title">Khóa đã nghỉ và lịch sử xoay khóa ({{KEY_COUNT}})</h2>
+                <p class="section-lead">
+                  Các khóa đang hoạt động nằm ở tấm phía trên. Khóa đã nghỉ không bao giờ bị xóa khỏi danh sách: mọi chữ ký
+                  lịch sử lập trước ngày ngừng khóa vẫn xác minh hợp lệ theo đúng <code class="mono">keyId</code>.
+                </p>
+              </div>
+              <a class="ext-link" href="./public-keys.json" target="_blank" rel="noopener noreferrer">
+                <span>Tải public-keys.json gốc</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                <span class="sr-only"> (mở thẻ mới)</span>
+              </a>
+            </div>
+
+            <ol class="ledger-list">
+              {{KEY_REGISTRY_ROWS}}
+            </ol>
+          </section>
+
+          <!-- 3. Cách dùng khóa này để tự kiểm chứng -->
+          <section class="sheet-section" id="huong-dan" aria-labelledby="guide-heading">
+            <h2 id="guide-heading" class="section-title">Cách dùng khóa công khai để tự kiểm chứng</h2>
+            <p class="section-lead">
+              Bạn có thể đối chiếu bộ hồ sơ chứng cứ bằng một trong hai cách dưới đây; tệp tác phẩm gốc luôn ở lại thiết bị
+              của bạn.
+            </p>
+
+            <div class="guide-grid">
+              <div class="guide-col">
+                <h3 class="guide-col-title">Cách 1: Trên trình duyệt (không cần cài đặt)</h3>
+                <ol class="step-list">
+                  <li>Bấm <strong>Sao chép bộ khóa đang hoạt động</strong> ở tấm xanh phía trên.</li>
+                  <li>
+                    Mở trang xác minh gói chứng cứ và nạp tệp <code class="mono">evidence.json</code> hoặc gói
+                    <code class="mono">.zip</code> cùng tệp tác phẩm gốc.
+                  </li>
+                  <li>
+                    Mở mục <em>Tùy chọn: Ghim khóa công khai tin cậy</em> rồi dán bộ khóa vừa sao chép để hoàn tất đối chiếu
+                    độc lập cả chữ ký lẫn gốc Merkle.
+                  </li>
+                </ol>
+                <div class="guide-actions">
+                  <a
+                    class="btn btn-primary"
+                    href="{{APP_BASE_URL}}/xac-minh/goi-chung-cu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>Mở trang xác minh gói</span>
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                    <span class="sr-only"> (mở thẻ mới)</span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="guide-col">
+                <h3 class="guide-col-title">Cách 2: Ngoại tuyến hoàn toàn bằng dòng lệnh (Node.js 22+)</h3>
+                <p class="muted">
+                  Tải công cụ kiểm chứng nguồn mở <code class="mono">creatorshield-verify.mjs</code> rồi chạy trên máy không
+                  cần kết nối mạng:
+                </p>
+                <pre class="cli-block"><code>{{CLI_EXAMPLE_COMMAND}}</code></pre>
+                <div class="guide-actions">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-copy="{{CLI_EXAMPLE_COMMAND}}"
+                    data-copy-label="lệnh kiểm chứng CLI"
+                  >
+                    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    <span>Sao chép lệnh CLI</span>
+                  </button>
+                  <a
+                    class="ext-link"
+                    href="{{APP_BASE_URL}}/cong-cu/creatorshield-verify.mjs"
+                    download
+                    rel="noopener noreferrer"
+                  >
+                    <span>Tải creatorshield-verify.mjs</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 4. Lịch sử điểm kiểm chứng công khai -->
+          <section class="sheet-section" id="diem-kiem-chung" aria-labelledby="checkpoints-heading">
+            <div class="section-head">
+              <div>
+                <h2 id="checkpoints-heading" class="section-title">Lịch sử điểm kiểm chứng công khai ({{CHECKPOINT_COUNT}})</h2>
+                <p class="section-lead">
+                  Mỗi bản tin cố định đầu chuỗi sự kiện và gốc Merkle RFC 6962 tại thời điểm phát hành. Các tệp JSON lịch sử
+                  không bao giờ bị thay thế.
+                </p>
+              </div>
+              <a class="ext-link" href="{{REPO_WEB_URL}}/tree/main/checkpoints" target="_blank" rel="noopener noreferrer">
+                <span>Mở thư mục checkpoints/</span>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 3h6v6"/><path d="M10 14 21 3"/><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></svg>
+                <span class="sr-only"> (mở thẻ mới)</span>
+              </a>
+            </div>
+
+            <div id="browser-verify-banner" class="notice notice-info" role="status" aria-live="polite">
+              <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+              <span id="browser-verify-text">Đã kiểm toán học {{VERIFIED_CHECKPOINT_COUNT}}/{{CHECKPOINT_COUNT}} bản tin lúc dựng trang bằng Ed25519 (nhãn miền <code class="mono">creatorshield/checkpoint/v1</code>).</span>
+            </div>
+
+            <div class="filter-bar">
+              <div class="filter-field">
+                <label class="field-label" for="cp-key-filter">Lọc theo khóa ký</label>
+                <select id="cp-key-filter" class="select-input">
+                  <option value="">Tất cả khóa ({{CHECKPOINT_COUNT}} bản tin)</option>
+                  {{KEY_FILTER_OPTIONS}}
+                </select>
+              </div>
+              <div class="filter-field filter-grow">
+                <label class="field-label" for="cp-search-input">Tìm theo ngày, đầu chuỗi hoặc mã băm</label>
+                <input
+                  id="cp-search-input"
+                  class="text-input"
+                  type="search"
+                  placeholder="Ví dụ: 2026-11-25, #13, 0df168..."
+                  spellcheck="false"
+                />
+              </div>
+            </div>
+
+            <p id="cp-filter-count" class="filter-count" aria-live="polite">
+              Đang hiển thị {{CHECKPOINT_COUNT}} / {{CHECKPOINT_COUNT}} bản tin.
+            </p>
+
+            <ol id="cp-list" class="ledger-list">
+              {{CHECKPOINT_ROWS}}
+            </ol>
+
+            <div id="cp-empty" class="empty-box" hidden>
+              <p>Không có bản tin điểm kiểm chứng nào khớp điều kiện lọc hiện tại.</p>
+              <button type="button" id="cp-clear-filters" class="btn btn-secondary btn-sm">Xóa bộ lọc</button>
+            </div>
+          </section>
+
+          <!-- 5. Phạm vi tin cậy & lưu ý pháp lý (cần đội rà soát câu chữ) -->
+          <section class="sheet-section disclaimer-section" aria-labelledby="limits-heading">
+            <h2 id="limits-heading" class="section-title">Phạm vi tin cậy và lưu ý quan trọng</h2>
+            <ul class="limits-list">
+              <li>
+                <strong>Không lưu tệp gốc hay danh tính:</strong> Kho công khai này chỉ chứa khóa công khai Ed25519 và bản
+                tin đầu chuỗi/gốc Merkle. Không có nội dung tệp, tên tác phẩm, email hay thông tin định danh người ký gửi.
+              </li>
+              <li>
+                <strong>Giới hạn thời gian trên Git:</strong> Thời gian tác giả và người commit trong Git là giá trị tự khai,
+                không phải dấu thời gian độc lập RFC 3161 (TSA). Nếu cần chứng cứ thời điểm mạnh hơn, hãy lưu bản chụp tải
+                ẩn danh HTTPS hoặc đối chiếu thêm kênh độc lập.
+              </li>
+              <li>
+                <strong>Quản trị kho Git:</strong> Quản trị viên kho có quyền kỹ thuật viết lại lịch sử Git; bên quan tâm nên
+                lưu giữ bản sao độc lập của tệp <code class="mono">public-keys.json</code> và các mã băm đã công bố.
+              </li>
+              <li>
+                <strong>Giá trị tham khảo:</strong> Kết quả kiểm chứng mật mã xác nhận tính toàn vẹn của bản ghi theo khóa
+                đã công bố, không tự xác nhận quyền tác giả và không thay thế Giấy chứng nhận đăng ký quyền tác giả do Cục
+                Bản quyền tác giả cấp. Thông tin mang tính tham khảo, không phải tư vấn pháp lý.
+              </li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <p class="footer-brand">CreatorShield · Đội Nghê Ấn · Kênh công bố độc lập trên GitHub Pages</p>
+        <nav class="footer-links" aria-label="Liên kết chân trang">
+          <a href="./public-keys.json" target="_blank" rel="noopener noreferrer">public-keys.json</a>
+          <a href="./data/registry.json" target="_blank" rel="noopener noreferrer">registry.json</a>
+          <a href="{{REPO_WEB_URL}}" target="_blank" rel="noopener noreferrer">Kho GitHub</a>
+          <a href="{{APP_BASE_URL}}/diem-kiem-chung" target="_blank" rel="noopener noreferrer">Trang ứng dụng chính</a>
+        </nav>
+      </div>
+    </footer>
+
+    <div id="live-announcer" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
