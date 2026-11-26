@@ -144,7 +144,7 @@ function setBanner(toneClass, message) {
   const banner = document.getElementById("browser-verify-banner");
   const textEl = document.getElementById("browser-verify-text");
   if (!banner) return;
-  banner.className = `notice ${toneClass}`;
+  banner.className = `notice-pill ${toneClass}`;
   if (textEl) textEl.textContent = message;
   else banner.textContent = message;
 }
@@ -200,6 +200,12 @@ function setupQuickMatch(registry) {
         if (item.external) {
           a.target = "_blank";
           a.rel = "noopener noreferrer";
+        } else if (item.href.startsWith("#key-")) {
+          a.addEventListener("click", () => {
+            const targetEl = document.querySelector(item.href);
+            const parentDetails = targetEl?.closest("details");
+            if (parentDetails) parentDetails.open = true;
+          });
         }
         a.textContent = item.label;
         linkRow.appendChild(a);
@@ -424,10 +430,10 @@ async function verifyAllCheckpointsInBrowser(registry) {
       for (const badge of badges) {
         badge.className = "pill status-active";
         const span = badge.querySelector("span");
-        if (span) span.textContent = "Trình duyệt vừa tự kiểm · Ed25519";
+        if (span) span.textContent = "Hợp lệ · Ed25519";
       }
       for (const s3 of step3Texts) {
-        s3.textContent = `Trình duyệt vừa xác minh hợp lệ với khóa ${cp.keyId}`;
+        s3.textContent = `Trình duyệt vừa tự kiểm hợp lệ với khóa ${cp.keyId}`;
       }
     } else {
       failed += 1;
@@ -445,12 +451,12 @@ async function verifyAllCheckpointsInBrowser(registry) {
   if (failed === 0) {
     setBanner(
       "notice-success",
-      `Trình duyệt vừa tự kiểm lại chữ ký Ed25519 (nhãn miền ${CHECKPOINT_DOMAIN}): ${passed}/${registry.checkpoints.length} bản tin hợp lệ.`,
+      `Trình duyệt vừa tự kiểm ${passed}/${registry.checkpoints.length} bản tin hợp lệ (Ed25519)`,
     );
   } else {
     setBanner(
       "notice-danger",
-      `Cảnh báo: ${failed}/${registry.checkpoints.length} bản tin không vượt qua bước tự kiểm Ed25519 tại trình duyệt. Kiểm tra chi tiết từng dòng bên dưới.`,
+      `Cảnh báo: ${failed}/${registry.checkpoints.length} bản tin lỗi chữ ký`,
     );
   }
 }
