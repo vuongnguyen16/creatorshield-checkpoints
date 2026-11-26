@@ -46,12 +46,13 @@ node creatorshield-verify.mjs evidence.json --file <tep-goc> \
 
 ---
 
-## Lưu ý về giới hạn thời gian và giá trị tham khảo *(cần đội rà soát câu chữ)*
+## Phạm vi tin cậy và giới hạn pháp lý *(đồng bộ nguyên văn Thuyết minh chương XIX & `/xac-minh`)*
 
-- Thời gian tác giả/người commit trong Git là giá trị tự khai, **không phải** dấu thời gian độc lập RFC 3161 (TSA). Lần tải ẩn danh qua HTTPS chỉ chứng minh dữ liệu đã công khai chậm nhất tại thời điểm tải.
-- Quản trị viên kho Git có khả năng kỹ thuật viết lại lịch sử; bên cần bằng chứng dài hạn nên lưu giữ bản sao độc lập của `public-keys.json` và các bản tin đã công bố.
-- Các bản tin đầu chuỗi `#6` và `#7` ngày 17/11/2026 thuộc bộ dữ liệu kiểm thử nghiệm thu M5 có nhãn synthetic trong ứng dụng (nghiệm thu M5 được điều chỉnh ngày 17/11/2026 cho phép 3 checkpoint thật trong cùng ngày, không chứng minh vận hành 3 ngày trước thời điểm đó).
-- Kết quả kiểm chứng mật mã không thay thế Giấy chứng nhận đăng ký quyền tác giả do Cục Bản quyền tác giả cấp và không phải tư vấn pháp lý.
+- **Ý nghĩa kỹ thuật của điểm kiểm chứng:** Mỗi bản tin hợp lệ cho biết mã băm đầu chuỗi và gốc Merkle RFC 6962 đã được ghi nhận, ký bằng khóa hệ thống Ed25519 tại thời điểm nêu trên và chuỗi bản ghi từ `#1` đến đầu chuỗi đó chưa bị sửa đổi kể từ khi công bố.
+- **Bảo vệ quyền riêng tư (không lưu tệp gốc hay danh tính):** Kho công khai này chỉ lưu khóa công khai Ed25519 và các bản tin đầu chuỗi/gốc Merkle; hoàn toàn không chứa nội dung tệp gốc, tên tác phẩm, tên tệp, email hay thông tin định danh người ký gửi.
+- **Giới hạn về nguồn thời gian và quản trị kho Git:** Thời điểm phát hành (`issuedAt`) sử dụng đồng hồ máy chủ kết hợp điểm kiểm chứng công khai; thời gian tác giả/người commit trong Git là giá trị tự khai, **không phải** dấu thời gian độc lập RFC 3161 từ tổ chức cung cấp dịch vụ tin cậy được cấp phép (TSA — thuộc lộ trình năm 2027). Lần tải ẩn danh qua HTTPS chỉ chứng minh dữ liệu đã công khai chậm nhất tại thời điểm tải. Quản trị viên kho GitHub có khả năng kỹ thuật viết lại lịch sử nhánh từ xa; bên kiểm chứng nên tự lưu giữ bản sao độc lập của `public-keys.json`, các tệp bản tin JSON và gói `evidence.json`.
+- **Dữ liệu nghiệm thu M5 ngày 17/11/2026:** Các bản tin đầu chuỗi `#6` và `#7` ngày 17/11/2026 thuộc bộ dữ liệu kiểm thử nghiệm thu M5 có nhãn synthetic trong ứng dụng (tiêu chí nghiệm thu M5 điều chỉnh ngày 17/11/2026 cho phép 3 checkpoint thật trong cùng ngày, không chứng minh hệ thống đã vận hành 3 ngày tính đến thời điểm đó).
+- **Giới hạn của kết quả xác minh (Thuyết minh chương XIX):** Kết quả không xác nhận danh tính người ký gửi, không xác nhận ai là tác giả hay chủ sở hữu quyền, và không thay thế Giấy chứng nhận đăng ký quyền tác giả do Cục Bản quyền tác giả cấp hay kết luận của cơ quan có thẩm quyền. Hai người ký gửi cùng một tệp sẽ có cùng mã băm; trang xác minh công khai chỉ hiển thị bản ghi sớm nhất. Thông tin mang tính tham khảo, không phải tư vấn pháp lý.
 
 ---
 

@@ -223,10 +223,11 @@
           <section class="sheet-section" id="diem-kiem-chung" aria-labelledby="checkpoints-heading">
             <div class="section-head">
               <div>
-                <h2 id="checkpoints-heading" class="section-title">Lịch sử điểm kiểm chứng công khai ({{CHECKPOINT_COUNT}})</h2>
+                <h2 id="checkpoints-heading" class="section-title">Điểm kiểm chứng công khai ({{CHECKPOINT_COUNT}} bản tin)</h2>
                 <p class="section-lead">
-                  Mỗi bản tin cố định đầu chuỗi sự kiện và gốc Merkle RFC 6962 tại thời điểm phát hành. Các tệp JSON lịch sử
-                  không bao giờ bị thay thế.
+                  Mỗi ngày hệ thống phát hành một bản tin có chữ ký số Ed25519 để khóa cứng toàn bộ các bản ghi từ
+                  <strong>#1</strong> đến thời điểm đó. Nếu bất kỳ bản ghi cũ nào bị sửa đổi về sau, mã băm gốc Merkle sẽ
+                  lệch ngay lập tức.
                 </p>
               </div>
               <a class="ext-link" href="{{REPO_WEB_URL}}/tree/main/checkpoints" target="_blank" rel="noopener noreferrer">
@@ -241,6 +242,17 @@
               <span id="browser-verify-text">Đã kiểm toán học {{VERIFIED_CHECKPOINT_COUNT}}/{{CHECKPOINT_COUNT}} bản tin lúc dựng trang bằng Ed25519 (nhãn miền <code class="mono">creatorshield/checkpoint/v1</code>).</span>
             </div>
 
+            {{LATEST_CHECKPOINT_SPOTLIGHT}}
+
+            <div class="cp-history-header">
+              <h3 class="cp-history-title">Dòng thời gian toàn bộ các lần phát hành ({{CHECKPOINT_COUNT}})</h3>
+              <p class="muted">
+                Chọn bộ lọc nhanh bên dưới để chỉ xem những ngày có thêm bản ghi mới hoặc lọc theo định dạng bản tin.
+              </p>
+            </div>
+
+            {{CHECKPOINT_QUICK_FILTERS}}
+
             <div class="filter-bar">
               <div class="filter-field">
                 <label class="field-label" for="cp-key-filter">Lọc theo khóa ký</label>
@@ -250,14 +262,14 @@
                 </select>
               </div>
               <div class="filter-field filter-grow">
-                <label class="field-label" for="cp-search-input">Tìm theo ngày, đầu chuỗi hoặc mã băm</label>
+                <label class="field-label" for="cp-search-input">Tìm theo ngày, số thứ tự bản ghi hoặc mã băm</label>
                 <input
                   id="cp-search-input"
                   name="checkpoint-search"
                   class="text-input"
                   type="search"
                   autocomplete="off"
-                  placeholder="Ví dụ: 2026-11-25, #13, 0df168…"
+                  placeholder="Ví dụ: 26/11/2026, #14, 0df168…"
                   spellcheck="false"
                 />
               </div>
@@ -277,27 +289,30 @@
             </div>
           </section>
 
-          <!-- 5. Phạm vi tin cậy & lưu ý pháp lý (cần đội rà soát câu chữ) -->
+          <!-- 5. Phạm vi tin cậy & lưu ý pháp lý (đồng bộ nguyên văn Thuyết minh XIX & /xac-minh) -->
           <section class="sheet-section disclaimer-section" aria-labelledby="limits-heading">
-            <h2 id="limits-heading" class="section-title">Phạm vi tin cậy và lưu ý quan trọng</h2>
+            <h2 id="limits-heading" class="section-title">Phạm vi tin cậy và giới hạn pháp lý</h2>
             <ul class="limits-list">
               <li>
-                <strong>Không lưu tệp gốc hay danh tính:</strong> Kho công khai này chỉ chứa khóa công khai Ed25519 và bản
-                tin đầu chuỗi/gốc Merkle. Không có nội dung tệp, tên tác phẩm, email hay thông tin định danh người ký gửi.
+                <strong>Ý nghĩa kỹ thuật của điểm kiểm chứng:</strong> Mỗi bản tin hợp lệ cho biết mã băm đầu chuỗi và gốc
+                Merkle RFC 6962 đã được ghi nhận, ký bằng khóa hệ thống Ed25519 tại thời điểm nêu trên và chuỗi bản ghi từ
+                <code class="mono">#1</code> đến đầu chuỗi đó chưa bị sửa đổi kể từ khi công bố.
               </li>
               <li>
-                <strong>Giới hạn thời gian trên Git:</strong> Thời gian tác giả và người commit trong Git là giá trị tự khai,
-                không phải dấu thời gian độc lập RFC 3161 (TSA). Nếu cần chứng cứ thời điểm mạnh hơn, hãy lưu bản chụp tải
-                ẩn danh HTTPS hoặc đối chiếu thêm kênh độc lập.
+                <strong>Bảo vệ quyền riêng tư (không lưu tệp gốc hay danh tính):</strong> Kho công khai này chỉ lưu khóa
+                công khai Ed25519 và các bản tin đầu chuỗi/gốc Merkle; hoàn toàn không chứa nội dung tệp gốc, tên tác phẩm,
+                tên tệp, email hay thông tin định danh người ký gửi.
               </li>
               <li>
-                <strong>Quản trị kho Git:</strong> Quản trị viên kho có quyền kỹ thuật viết lại lịch sử Git; bên quan tâm nên
-                lưu giữ bản sao độc lập của tệp <code class="mono">public-keys.json</code> và các mã băm đã công bố.
+                <strong>Giới hạn về nguồn thời gian và quản trị kho Git:</strong> Thời điểm phát hành
+                (<code class="mono">issuedAt</code>) sử dụng đồng hồ máy chủ kết hợp điểm kiểm chứng công khai; thời gian
+                author/committer trong Git là giá trị tự khai, không phải dấu thời gian độc lập RFC 3161 từ tổ chức cung cấp
+                dịch vụ tin cậy được cấp phép (thuộc lộ trình năm 2027). Quản trị viên kho GitHub có khả năng kỹ thuật viết
+                lại lịch sử nhánh từ xa; bên kiểm chứng nên tự lưu giữ bản sao độc lập của
+                <code class="mono">public-keys.json</code>, tệp bản tin JSON và gói <code class="mono">evidence.json</code>.
               </li>
               <li>
-                <strong>Giá trị tham khảo:</strong> Kết quả kiểm chứng mật mã xác nhận tính toàn vẹn của bản ghi theo khóa
-                đã công bố, không tự xác nhận quyền tác giả và không thay thế Giấy chứng nhận đăng ký quyền tác giả do Cục
-                Bản quyền tác giả cấp. Thông tin mang tính tham khảo, không phải tư vấn pháp lý.
+                <strong>Giới hạn của kết quả xác minh (Thuyết minh chương XIX):</strong> Kết quả không xác nhận danh tính người ký gửi, không xác nhận ai là tác giả hay chủ sở hữu quyền, và không thay thế Giấy chứng nhận đăng ký quyền tác giả do Cục Bản quyền tác giả cấp hay kết luận của cơ quan có thẩm quyền. Hai người ký gửi cùng một tệp sẽ có cùng mã băm; trang xác minh công khai chỉ hiển thị bản ghi sớm nhất. Thông tin mang tính tham khảo, không phải tư vấn pháp lý.
               </li>
             </ul>
           </section>

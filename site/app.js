@@ -71,10 +71,21 @@ function setupCheckpointFilters() {
   const countEl = document.getElementById("cp-filter-count");
   const emptyEl = document.getElementById("cp-empty");
   const clearBtn = document.getElementById("cp-clear-filters");
+  const quickButtons = Array.from(document.querySelectorAll("[data-cp-quick-filter]"));
 
   if (!list || !keySelect || !searchInput) return;
   const rows = Array.from(list.querySelectorAll("[data-cp-row]"));
   const total = rows.length;
+  let activeQuickMode = "all";
+
+  function setQuickMode(mode) {
+    activeQuickMode = mode;
+    for (const btn of quickButtons) {
+      const selected = btn.getAttribute("data-cp-quick-filter") === mode;
+      btn.classList.toggle("is-selected", selected);
+      btn.setAttribute("aria-pressed", selected ? "true" : "false");
+    }
+  }
 
   function applyFilter() {
     const selectedKey = keySelect.value.trim();
@@ -84,7 +95,15 @@ function setupCheckpointFilters() {
       const matchesKey = !selectedKey || row.getAttribute("data-cp-key") === selectedKey;
       const haystack = row.getAttribute("data-cp-search") ?? "";
       const matchesQuery = !query || haystack.includes(query);
-      const show = matchesKey && matchesQuery;
+      let matchesQuick = true;
+      if (activeQuickMode === "changed") {
+        matchesQuick = row.getAttribute("data-cp-changed") === "true";
+      } else if (activeQuickMode === "v2") {
+        matchesQuick = row.getAttribute("data-cp-format") === "v2";
+      } else if (activeQuickMode === "v1") {
+        matchesQuick = row.getAttribute("data-cp-format") === "v1";
+      }
+      const show = matchesKey && matchesQuery && matchesQuick;
       row.hidden = !show;
       if (show) visible += 1;
     }
@@ -96,12 +115,20 @@ function setupCheckpointFilters() {
     }
   }
 
+  for (const btn of quickButtons) {
+    btn.addEventListener("click", () => {
+      setQuickMode(btn.getAttribute("data-cp-quick-filter") ?? "all");
+      applyFilter();
+    });
+  }
+
   keySelect.addEventListener("change", applyFilter);
   searchInput.addEventListener("input", applyFilter);
   if (clearBtn) {
     clearBtn.addEventListener("click", () => {
       keySelect.value = "";
       searchInput.value = "";
+      setQuickMode("all");
       applyFilter();
       searchInput.focus();
     });
@@ -353,7 +380,8 @@ async function verifyAllCheckpointsInBrowser(registry) {
   let failed = 0;
 
   for (const cp of registry.checkpoints) {
-    const badge = document.querySelector(`[data-cp-sig-badge="${CSS.escape(cp.bulletinHash)}"]`);
+    const badges = document.querySelectorAll(`[data-cp-sig-badge="${CSS.escape(cp.bulletinHash)}"]`);
+    const step3Texts = document.querySelectorAll(`[data-cp-step3-text="${CSS.escape(cp.bulletinHash)}"]`);
     let ok = false;
     let reason = "";
 
@@ -393,17 +421,23 @@ async function verifyAllCheckpointsInBrowser(registry) {
 
     if (ok) {
       passed += 1;
-      if (badge) {
+      for (const badge of badges) {
         badge.className = "pill status-active";
         const span = badge.querySelector("span");
         if (span) span.textContent = "Trình duyệt vừa tự kiểm · Ed25519";
       }
+      for (const s3 of step3Texts) {
+        s3.textContent = `Trình duyệt vừa xác minh hợp lệ với khóa ${cp.keyId}`;
+      }
     } else {
       failed += 1;
-      if (badge) {
+      for (const badge of badges) {
         badge.className = "pill status-danger";
         const span = badge.querySelector("span");
         if (span) span.textContent = `Không hợp lệ: ${reason}`;
+      }
+      for (const s3 of step3Texts) {
+        s3.textContent = `Không hợp lệ: ${reason}`;
       }
     }
   }

@@ -759,8 +759,9 @@ main {
   border-radius: 999px;
   font-size: 0.8125rem;
   font-weight: 600;
-  line-height: 1.3;
-  white-space: nowrap;
+  line-height: 1.35;
+  max-width: 100%;
+  white-space: normal;
 }
 
 .status-active {
@@ -810,6 +811,206 @@ main {
 .pill-neutral {
   background: var(--ink-100);
   color: var(--ink-700);
+}
+
+.pill-spotlight {
+  background: var(--navy-700);
+  color: #ffffff;
+}
+
+.pill-delta-new {
+  background: var(--status-info-bg);
+  color: var(--navy-700);
+  border: 1px solid var(--navy-200);
+}
+
+/* ---------- Latest Checkpoint Spotlight & Friendly Checkpoint UI ---------- */
+.cp-spotlight {
+  margin-block: 1.25rem 1.75rem;
+  padding: clamp(1.15rem, 2.8vw, 1.65rem);
+  border-radius: var(--radius-sheet);
+  background: var(--navy-50);
+  border: 1.5px solid var(--navy-300);
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.cp-spotlight-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.cp-spotlight-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.cp-badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.cp-spotlight-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--navy-900);
+}
+
+.cp-spotlight-lead {
+  font-size: 0.9375rem;
+  color: var(--ink-700);
+  max-width: 70ch;
+}
+
+.cp-summary-strip {
+  margin: 0;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-block);
+  background: var(--surface-0);
+  border: 1px solid var(--ink-200);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+}
+
+@media (min-width: 780px) {
+  .cp-summary-strip {
+    grid-template-columns: 1.15fr 1.15fr 0.85fr;
+    gap: 1rem;
+  }
+}
+
+.cp-summary-strip dt {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-600);
+}
+
+.cp-summary-strip dd {
+  margin: 0.2rem 0 0;
+  font-size: 0.925rem;
+  font-weight: 600;
+  color: var(--ink-900);
+}
+
+.cp-hash-hint {
+  display: inline-block;
+  margin-top: 0.2rem;
+  padding: 0.1rem 0.45rem;
+  border-radius: 6px;
+  background: var(--surface-2);
+  color: var(--ink-700);
+  font-size: 0.78rem;
+  font-weight: 500;
+}
+
+@media (min-width: 640px) {
+  .cp-hash-hint {
+    margin-top: 0;
+    margin-left: 0.5rem;
+  }
+}
+
+.cp-verify-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0.75rem 0.95rem;
+  border-radius: var(--radius-block);
+  background: var(--surface-0);
+  border: 1px solid var(--ink-200);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cp-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.875rem;
+  color: var(--ink-700);
+}
+
+.cp-step .icon {
+  margin-top: 0.12rem;
+}
+
+.cp-step.is-pass .icon {
+  color: var(--status-success-strong);
+}
+
+.cp-step.is-fail .icon {
+  color: var(--status-danger-strong);
+}
+
+.cp-step strong {
+  color: var(--ink-900);
+  margin-right: 0.25rem;
+}
+
+.cp-history-header {
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cp-history-title {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--navy-700);
+}
+
+.cp-quick-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chip-btn {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--ink-300);
+  background: var(--surface-0);
+  color: var(--ink-700);
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: background-color var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out), color var(--dur) var(--ease-out);
+}
+
+.chip-btn:hover {
+  background: var(--navy-50);
+  border-color: var(--navy-500);
+  color: var(--navy-700);
+}
+
+.chip-btn.is-selected {
+  background: var(--navy-700);
+  border-color: var(--navy-700);
+  color: #ffffff;
+}
+
+.cp-footer-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
 }
 
 /* ---------- Quick Match ---------- */

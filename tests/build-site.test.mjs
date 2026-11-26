@@ -134,14 +134,23 @@ describe("build-site: pre-rendered HTML, sorting, security escaping, and comprom
 
       assert.equal(summary.keyCount, 4);
       assert.equal(summary.activeKeyCount, 3);
-      assert.equal(summary.checkpointCount, 9);
-      assert.equal(summary.verifiedCheckpointCount, 9);
+      assert.ok(summary.checkpointCount >= 10, "Expected at least 10 checkpoints including 2026-11-26");
+      assert.equal(summary.verifiedCheckpointCount, summary.checkpointCount);
 
       const registry = JSON.parse(await readFile(join(outDir, "data/registry.json"), "utf8"));
-      assert.equal(registry.checkpoints.length, 9);
-      assert.equal(registry.checkpoints[0].day, "2026-11-25");
-      assert.equal(registry.checkpoints[0].headSeq, 13);
-      assert.equal(registry.checkpoints[0].format, "creatorshield-checkpoint/2");
+      assert.equal(registry.checkpoints.length, summary.checkpointCount);
+      assert.equal(registry.checkpoints[0].isLatest, true);
+      assert.match(registry.checkpoints[0].coverageLabel, /^Bảo chứng bản ghi #1 – #\d+$/);
+      assert.ok(
+        ["expanded", "reconfirmed", "initial"].includes(registry.checkpoints[0].deltaType),
+        "Checkpoint must include chronological deltaType",
+      );
+      assert.ok(registry.checkpoints[0].deltaLabel.length > 0);
+
+      // Verify at least one expanded and one reconfirmed checkpoint exist in history
+      assert.ok(registry.checkpoints.some((c) => c.deltaType === "expanded"));
+      assert.ok(registry.checkpoints.some((c) => c.deltaType === "reconfirmed"));
+      assert.ok(registry.checkpoints.some((c) => c.deltaType === "initial"));
 
       // Verify strict descending issuedAt order across all bulletins (including same-day 2026-11-18 and 2026-11-17)
       for (let i = 1; i < registry.checkpoints.length; i++) {
@@ -173,6 +182,19 @@ describe("build-site: pre-rendered HTML, sorting, security escaping, and comprom
         "Zero third-party CDN requests",
       );
       assert.doesNotMatch(html, /\sstyle="/i, "Zero inline style attributes");
+
+      // Check user-friendly checkpoint enhancements & Thuyết minh XIX legal parity
+      assert.ok(html.includes("Điểm kiểm chứng mới nhất đang neo chuỗi"), "Must spotlight latest checkpoint");
+      assert.ok(html.includes("data-cp-quick-filter="), "Must render 1-click quick filter pills");
+      assert.ok(html.includes("Bảo chứng bản ghi #1 – #"), "Must show plain-Vietnamese record coverage range");
+      assert.ok(
+        html.includes("không xác nhận danh tính người ký gửi, không xác nhận ai là tác giả hay chủ sở hữu quyền"),
+        "Must match canonical /xac-minh legal limitation wording",
+      );
+      assert.ok(
+        html.includes("không thay thế Giấy chứng nhận đăng ký quyền tác giả do Cục Bản quyền tác giả cấp hay kết luận của cơ quan có thẩm quyền"),
+        "Must include full Copyright Office & competent authority clause from /xac-minh",
+      );
 
       // Raw files preserved verbatim
       const origKeys = await readFile(join(REPO_ROOT, "public-keys.json"), "utf8");
