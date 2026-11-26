@@ -1,0 +1,17 @@
+{
+  "payload": {
+    "format": "creatorshield-checkpoint/2",
+    "day": "2026-11-26",
+    "headSeq": 14,
+    "headEventHash": "0d4efa7d5188101f0c2dafde6e38c21bea91160e01e4918ef3ade055f574c7f5",
+    "issuedAt": "2026-11-26T01:00:43.327Z",
+    "alg": "Ed25519",
+    "keyId": "key-checkpoint-2026-11",
+    "treeSize": 14,
+    "merkleRoot": "885487b1b555361f3d151ad3f11bef0e717e125dc0ae61c9bf99ea755c38d57b"
+  },
+  "bulletin": "{\"alg\":\"Ed25519\",\"day\":\"2026-11-26\",\"format\":\"creatorshield-checkpoint/2\",\"headEventHash\":\"0d4efa7d5188101f0c2dafde6e38c21bea91160e01e4918ef3ade055f574c7f5\",\"headSeq\":14,\"issuedAt\":\"2026-11-26T01:00:43.327Z\",\"keyId\":\"key-checkpoint-2026-11\",\"merkleRoot\":\"885487b1b555361f3d151ad3f11bef0e717e125dc0ae61c9bf99ea755c38d57b\",\"treeSize\":14}",
+  "bulletinHash": "a1e31cbc3da36311ac1afd5fbdf3c01ddb72f912ede21331ca90af2e6d58740d",
+  "signature": "o/XmVx8yIOyNOL4T7LiFJXop4+sZaiss/ZzHDk2bGluWqFyLOsjK0whfGREMbR++S4cVpw38decrHDFqX3keBw==",
+  "signatureDomain": "creatorshield/checkpoint/v1"
+}
